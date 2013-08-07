@@ -25,12 +25,15 @@
  */
  
 // This sketch, for a PJRC Teensy microcontroller, turns the
-// controller into a MIDI breath controller. It outputs both
-// MIDI breath control continuous controller data and monophonic
-// aftertouch on MIDI channel 1.
+// controller into a MIDI breath controller. I use a Freescale
+// MPXV4006GP pressure sensor to read breath pressure.
+// 
+// This sketch outputs both MIDI breath control continuous
+// controller data and monophonic aftertouch on MIDI channel 1.
 // When used with a correctly designed synthesizer patch, this
 // sketch can be used to articulate notes in a very expressive
 // fashion, typically while playing the notes on a MIDI keyboard.
+
  
 // The MIDI controller number for breath control
 #define BREATH_CONTROLLER 2
