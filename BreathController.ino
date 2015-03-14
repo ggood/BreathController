@@ -45,7 +45,10 @@
 // Only send CC data if the pressure sensor reading
 // a value larger than this. This value will need to
 // be adjusted for the particular sensor in use.
-#define BREATH_THRESHOLD 130
+#define BREATH_THRESHOLD 140
+// The pin hooked to an LED we will turn on when
+// sending CC data
+#define LED_PIN 11
 
 // The last time we sent a CC value
 unsigned long ccSendTime = 0L;
@@ -59,7 +62,7 @@ int lastCcVal = 0;
 void setup() {
   // Enable the LED for output - we'll turn it on
   // when a CC value is being sent.
-  pinMode(13, OUTPUT);
+  pinMode(LED_PIN, OUTPUT);
 }
 
 void loop() {
@@ -75,7 +78,7 @@ void loop() {
       // And send the value as a MIDI CC message
       usbMIDI.sendControlChange(BREATH_CONTROLLER, ccVal, MIDI_CHANNEL);
       usbMIDI.sendAfterTouch(ccVal, MIDI_CHANNEL);
-      digitalWrite(13, HIGH);
+      digitalWrite(LED_PIN, HIGH);
       ccSendTime = millis();
     } 
     else if (lastCcVal > 0) {
@@ -84,7 +87,7 @@ void loop() {
       usbMIDI.sendControlChange(BREATH_CONTROLLER, 0, MIDI_CHANNEL);
       usbMIDI.sendAfterTouch(0, MIDI_CHANNEL);
       ccSendTime = millis();
-      digitalWrite(13, LOW);
+      digitalWrite(LED_PIN, LOW);
       lastCcVal = 0;
     }
   }
